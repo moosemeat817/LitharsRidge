@@ -2,7 +2,7 @@
 
 *A hidden ridge in Bleak Inlet with a cozy hut, scenic overlooks, and a path for explorers to discover.*
 
-![Lithar's Ridge](https://github.com/moosemeat817/images/blob/main/LitharsRidge.jpg)
+![Lithar's Ridge](https://github.com/moosemeat817/ModListJson/blob/main/litharsridge2.png)
 
 ---
 
