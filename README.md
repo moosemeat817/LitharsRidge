@@ -20,6 +20,8 @@
 - Cozy and warm little hut
 - Furniture and gear populate the hut
 
+![Lithar's Ridge](https://github.com/moosemeat817/ModListJson/blob/main/litharsridge1.png)
+
 > Note: On existing saves, the hut is empty aside from the structure itself  
 
 ---
