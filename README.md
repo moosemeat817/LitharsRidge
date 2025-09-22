@@ -52,8 +52,8 @@
 
 ## 🙏 Special Thanks
 
-- **Lithar** – for always creating videos of new mods. This is a small “thank you” from the community.  
-- **Marcy** – for designing Lithar's sign  
+- **Lithar** – for always creating videos of new mods!
+- **Marcy** – for designing Lithar's sign!
 - The Long Dark Modding Community (Discord)  
 
 ---
