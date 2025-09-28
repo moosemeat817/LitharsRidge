@@ -9,9 +9,12 @@
 ## ✨ Features
 
 - New area accessible in the **southwest corner of Bleak Inlet**  
-- **Lithar's Hut** sits atop the ridge as a small, functional shelter  
+- **Lithar's Hut** sits atop the ridge as a small, functional shelter with shed attached 
 - Path markers help guide you safely to the hut  
-- Scenic views all along the ridge, including a **cliffside platform** for sweeping vistas of Bleak Inlet
+- Scenic views all along the ridge, including two **cliffside platforms** for sweeping vistas of Bleak Inlet
+- Cave overlooking Lithar's Hut
+- A few wildlife spawns
+- Variety of wood spawns
 
 ---
 
