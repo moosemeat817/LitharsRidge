@@ -13,8 +13,9 @@
 - Path markers help guide you safely to the hut  
 - Scenic views all along the ridge, including two **cliffside platforms** for sweeping vistas of Bleak Inlet
 - Cave overlooking Lithar's Hut
+- Option to relocate prepper cache to directly behind Lithar's Hut (enable in the settings)
 - A few wildlife spawns
-- Variety of wood spawns
+- Variety of wood and natural resource spawns
 
 ---
 
