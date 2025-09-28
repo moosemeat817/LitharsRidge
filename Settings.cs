@@ -9,7 +9,9 @@ namespace LitharsRidge
         [Description("Enables the mod")]
         public bool litharEnabled = false;
 
-
+        [Name("Add Lookout Tower")]
+        [Description("Add Lookout Tower to Lithar's Ridge")]
+        public bool litharTower = false;
 
     }
 

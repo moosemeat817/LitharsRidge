@@ -17,16 +17,19 @@ namespace LitharsRidge
         public override void OnSceneWasInitialized(int buildIndex, string sceneName)
         {
 
-            /*
-            if (sceneName == "CanneryRegion" && Settings.options.litharEnabled)
+            
+            if (sceneName == "CanneryRegion" && Settings.options.litharTower)
             {
 
-                GameObject.Find("Art/Rocks/INTERACTIVE_RopeCliff_08_100m/Rope_100m").gameObject.SetActive(true);           
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Rabbit (5)").gameObject.SetActive(true);
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Rabbit (7)").gameObject.SetActive(true);
+
 
             }
-            */
+            
 
-        }
+
+            }
 
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -39,6 +42,8 @@ namespace LitharsRidge
             }
 
 
+
+
             /*
             if(sceneName == "CanneryRegion" && Settings.options.litharEnabled)
             {
@@ -46,16 +51,42 @@ namespace LitharsRidge
             }
             */
 
-            
 
+            /*
             if (sceneName == "CanneryRegion_SANDBOX" && Settings.options.litharEnabled)
             {
                 Clones.ChangeObjects();
             }
+            */
 
             if (sceneName == "CanneryRegion" && Settings.options.litharEnabled)
             {
+
+
+                GameObject.Find("Art/DistantMountains/TRN_MountainDistantC_Prefab").transform.SetPositionAndRotation(new Vector3(-1990.195f, -103.2433f, -1391.95f), Quaternion.Euler(new Vector3(3.1792f, 288.5938f, 1.0978f)));
+
+
+
+                GameObject cliffObject = GameObject.Find("Art/Objects/Cliffs_Blue_B_CaveShallowA_Nested");
+                cliffObject.SetActive(true);
+                cliffObject.transform.SetPositionAndRotation(new Vector3(-1015.705f, 283.5386f, 744.48f), Quaternion.Euler(new Vector3(0, 354.5966f, 0)));
+
+                // Disable child 2 and children 4-10
+                int[] childrenToDisable = { 5 };
+                foreach (int childIndex in childrenToDisable)
+                {
+                    if (childIndex < cliffObject.transform.childCount)
+                    {
+                        cliffObject.transform.GetChild(childIndex).gameObject.SetActive(false);
+                    }
+                }
+
+
+
                 Clones.ChangeObjects();
+
+                Utilities.DisableChildrenByIndex("OBJ_HayShedA_Prefab (2)(Clone)", new int[] { 3, 4, 5, 6, 7 });
+
             }
 
 
@@ -63,8 +94,6 @@ namespace LitharsRidge
 
             if (sceneName == "CanneryRegion_SANDBOX" && Settings.options.litharEnabled)
             {
-
-
 
                 GameObject.Find("Design/NaturalResources/BranchSpawners/Sticks/Delta/RadialSpawn_sticks (82)").transform.SetPositionAndRotation(new Vector3(-1003.33f, 219.02f, 520.78f), Quaternion.Euler(new Vector3(0, 0, 0)));
 
@@ -97,17 +126,33 @@ namespace LitharsRidge
                 GameObject.Find("Design/NaturalResources/Plants/mushrooms/INTERACTIVE_ReishiMushroomStump (13)").gameObject.transform.localScale = new Vector3(.9f, .9f, .9f);
 
 
+                GameObject.Find("Design/NaturalResources/BranchSpawners/SmallBranches/RadialSpawn_small_branch (1)").transform.SetPositionAndRotation(new Vector3(-1064.14f, 208.23f, 523.68f), Quaternion.Euler(new Vector3(0, 0, 0)));
+                GameObject.Find("Design/NaturalResources/BranchSpawners/SmallBranches/RadialSpawn_small_branch (5)").transform.SetPositionAndRotation(new Vector3(-1028.28f, 213.23f, 515.44f), Quaternion.Euler(new Vector3(0, 0, 0)));
+                GameObject.Find("Design/NaturalResources/BranchSpawners/SmallBranches/RadialSpawn_small_branch (9)").transform.SetPositionAndRotation(new Vector3(-1364.65f, 186.77f, 427.88f), Quaternion.Euler(new Vector3(0, 0, 0)));
+                GameObject.Find("Design/NaturalResources/BranchSpawners/SmallBranches/RadialSpawn_small_branch (13)").transform.SetPositionAndRotation(new Vector3(-1400.85f, 207.47f, 363.10f), Quaternion.Euler(new Vector3(0, 0, 0)));
 
 
-
-
-
-
+                
 
             }
 
 
 
+
+            if (sceneName == "CanneryRegion_SANDBOX_WILDLIFE" && Settings.options.litharEnabled)
+            {
+
+                
+
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Rabbit (5)").transform.SetPositionAndRotation(new Vector3(-1051.80f, 212.36f, 525.92f), Quaternion.Euler(new Vector3(0, 0, 0)));
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Rabbit (7)").transform.SetPositionAndRotation(new Vector3(-1097.75f, 188.44f, 473.24f), Quaternion.Euler(new Vector3(0, 0, 0)));
+
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Stag_plateau1").gameObject.SetActive(true);
+                GameObject.Find("Wildlife/Plateau/SPAWNREGION_Stag_plateau1").transform.SetPositionAndRotation(new Vector3(-1357.31f, 187.08f, 439.68f), Quaternion.Euler(new Vector3(0, 0, 0)));
+                
+
+
+            }
 
 
 

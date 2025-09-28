@@ -55,6 +55,9 @@ namespace LitharsRidge
             {"CanneryRegion_SANDBOX",  "OBJ_CounterCorner_Prefab"},
             {"CanneryRegion_SANDBOX",  "INTERACTIVE_BedMattressB"},
 
+            {"CanneryRegion",  "Cliffs_Blue_C_CaveBigA_Nested"},
+            {"CanneryRegion",  "OBJ_HayShedA_Prefab (2)"},
+            {"CanneryRegion",  "TRN_MountainDistantC_Prefab"},
 
         };
 
@@ -425,7 +428,7 @@ namespace LitharsRidge
 
 
                         // Roof ------------------------------------------------------------------------------------------
-                        if (itemDataArray[i, 1] == "TRN_RockCliff_01_Win_Prefab (1" && !GameObject.Find("TRN_RockCliff_01_Win_Prefab (1(Clone)"))
+                        if (itemDataArray[i, 1] == "TRN_RockCliff_01_Win_Prefab (1)" && !GameObject.Find("TRN_RockCliff_01_Win_Prefab (1(Clone)"))
                         {
                             GameObject cloneObject = Instantiate(
                                 findTargetGO,
@@ -697,7 +700,7 @@ namespace LitharsRidge
                         {
                             GameObject cloneObject = Instantiate(
                                 findTargetGO,
-                                new Vector3(-1073.756f, 210.5606f, 564.1599f),
+                                new Vector3(-1065.53f, 211.43f, 558.32f),
                                 Quaternion.Euler(-0f, 211.9293f, 0f)
                             );
                             cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -730,7 +733,7 @@ namespace LitharsRidge
                         {
                             GameObject cloneObject = Instantiate(
                                 findTargetGO,
-                                new Vector3(-1249.857f, 174.6725f, 409.2403f),
+                                new Vector3(-1237.43f, 176.50f, 394.25f),
                                 Quaternion.Euler(-0f, 211.9293f, 0f)
                             );
                             cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
@@ -848,6 +851,186 @@ namespace LitharsRidge
 
 
 
+
+
+
+
+
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab11(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1194.13f, 186.19f, 422.48f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab12(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1117.74f, 188.24f, 407.38f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab13(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1279.21f, 164.31f, 350.00f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab14(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1309.78f, 157.63f, 296.26f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab15(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1135.91f, 185.99f, 479.66f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab16(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1032.27f, 217.68f, 565.50f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab17(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-985.64f, 216.28f, 569.16f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab18(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-968.35f, 215.48f, 563.57f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab19(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1166.98f, 186.46f, 443.46f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_Blizzard_Line_C_Prefab" && !GameObject.Find("OBJ_Blizzard_Line_C_Prefab20(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-1114.57f, 238.00f, 604.67f),
+                                Quaternion.Euler(-0f, 211.9293f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+                        }
+                        // ------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        // ==============================================================================================================
+                        // Lithar's Expansion
+                        // ==============================================================================================================
+
+
+                        // Roof ------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_HayShedA_Prefab (2)" && !GameObject.Find("OBJ_HayShedA_Prefab (2)(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-975.4714f, 215.5354f, 551.1504f),
+                                Quaternion.Euler(-0f, 108.4867f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(0.7f, 0.7f, 0.46f);
+
+
+                        }
+                        // ------------------------------------------------------------------------------------------
+
+
+                        // Roof------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "STR_BridgeB_small_Prefab" && !GameObject.Find("STR_BridgeB_small_Prefab2(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-950.4373f, 212.4587f, 582.2728f),
+                                Quaternion.Euler(-0f, 154.4133f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 0.8f, 1f);
+
+
+                        }
+                        // ------------------------------------------------------------------------------------------
+
+
+                        // Roof------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "TRN_MountainDistantC_Prefab" && !GameObject.Find("TRN_MountainDistantC_Prefab(Clone)"))
+                        {
+                            GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-950.4373f, 212.4587f, 582.2728f),
+                                Quaternion.Euler(-0f, 0f, 0f)
+                            );
+                            cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+
+
+                        }
+                        // ------------------------------------------------------------------------------------------
+
+
+
+
                     }
 
 
@@ -855,49 +1038,6 @@ namespace LitharsRidge
                     {
 
 
-
-
-                        // ==============================================================================================================
-                        // Lithar's Hut 
-                        // ==============================================================================================================
-
-                        /*
-                        // Location Label ------------------------------------------------------------------------------------------
-                        if (itemDataArray[i, 1] == "TRIGGER_LocationLabel (2)" && !GameObject.Find("TRIGGER_LocationLabel (2)(Clone)"))
-                        {
-                            GameObject cloneObject = Instantiate(
-                                findTargetGO,
-                                new Vector3(-1297.569f, 177.8825f, 206.336f),
-                                Quaternion.Euler(-0f, 0f, 0f)
-                            );
-
-                            Debug.Log("Attempting to modify DisplayLocationLabel component...");
-
-                            // Try to find the component
-                            DisplayLocationLabel displayLabel = cloneObject.GetComponent<DisplayLocationLabel>();
-                            if (displayLabel != null)
-                            {
-                                Debug.Log($"Component found! Current label: '{displayLabel.m_Label}'");
-
-                                // Try reflection to modify the field
-                                var labelField = displayLabel.GetType().GetField("m_Label", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public);
-                                if (labelField != null)
-                                {
-                                    labelField.SetValue(displayLabel, "Lithar's Ridge");
-                                    Debug.Log("Reflection assignment successful!");
-                                }
-                                else
-                                {
-                                    Debug.Log("Could not find m_Label field via reflection");
-                                }
-                            }
-                            else
-                            {
-                                Debug.Log("DisplayLocationLabel component NOT found!");
-                            }
-                        }
-                        // ------------------------------------------------------------------------------------------
-                        */
 
 
 
@@ -1012,6 +1152,29 @@ namespace LitharsRidge
                         }
                         // ------------------------------------------------------------------------------------------
 
+
+                        /*
+                        // Roof------------------------------------------------------------------------------------------
+                        if (itemDataArray[i, 1] == "OBJ_PicnicTableE_Prefab (1)" && !GameObject.Find("OBJ_PicnicTableE_Prefab (1)(Clone)"))
+                        {
+
+                            if (SaveDataManager.picnicTable == 0)
+                            {
+                                GameObject cloneObject = Instantiate(
+                                findTargetGO,
+                                new Vector3(-982.1937f, 216.2242f, 558.2231f),
+                                Quaternion.Euler(0f, 197.1676f, 0f)
+                            );
+                                cloneObject.transform.localScale = new Vector3(1f, 1f, 1f);
+
+                                SaveDataManager.picnicTable = 1;
+                                SaveDataManager.SaveData();
+                            }
+                            else { return; }
+
+                        }
+                        // ------------------------------------------------------------------------------------------
+                        */
                     }
 
                 }
