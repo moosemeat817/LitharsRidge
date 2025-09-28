@@ -3,33 +3,49 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace LitharsRidge
 {
     internal static class AssetUtils
     {
-
-        static Dictionary<string, GameObject> cachedPrefabs = new Dictionary<string, GameObject>();
+        private static readonly Dictionary<string, GameObject> cachedPrefabs = new Dictionary<string, GameObject>();
 
         public static GameObject GetPrefab(string prefabName)
         {
-            if (!cachedPrefabs.ContainsKey(prefabName))
+            if (string.IsNullOrEmpty(prefabName))
             {
+                return null;
+            }
+
+            // Check if prefab exists in cache and is not null
+            if (!cachedPrefabs.ContainsKey(prefabName) || cachedPrefabs[prefabName] == null)
+            {
+                // Remove null entry if it exists
+                if (cachedPrefabs.ContainsKey(prefabName))
+                {
+                    cachedPrefabs.Remove(prefabName);
+                }
+
                 GeneratePrefab(prefabName);
             }
-            else if(cachedPrefabs.ContainsKey(prefabName) && cachedPrefabs[prefabName] == null)
-            {
-                cachedPrefabs.Remove(prefabName);
-                GeneratePrefab(prefabName);
-            }
-            return GameObject.Instantiate(cachedPrefabs[prefabName]);
+
+            var cachedPrefab = cachedPrefabs[prefabName];
+            return cachedPrefab != null ? GameObject.Instantiate(cachedPrefab) : null;
         }
 
         private static void GeneratePrefab(string prefabName)
         {
-            GameObject go = new GameObject();
-            go.name = prefabName;
+            if (string.IsNullOrEmpty(prefabName))
+            {
+                return;
+            }
+
+            GameObject go = new GameObject
+            {
+                name = prefabName
+            };
 
             MeshFilter mf = go.AddComponent<MeshFilter>();
             MeshRenderer mr = go.AddComponent<MeshRenderer>();
@@ -37,24 +53,28 @@ namespace LitharsRidge
 
             switch (prefabName)
             {
-           
                 case "OBJ_WoodPlankSingle":
-                    mf.sharedMesh = Addressables.LoadAssetAsync<Mesh>("Assets/ArtAssets/Env/Structures/STR_CoastalHouseG/OBJ_WoodPlankSingle.fbx").WaitForCompletion();
-                    mr.sharedMaterial = Addressables.LoadAssetAsync<Material>("Assets/ArtAssets/Materials/Global/GLB_WallWoodNatural_B_Flat01.mat").WaitForCompletion();
-                    mc.sharedMesh = mf.sharedMesh;
+                    try
+                    {
+                        mf.sharedMesh = Addressables.LoadAssetAsync<Mesh>("Assets/ArtAssets/Env/Structures/STR_CoastalHouseG/OBJ_WoodPlankSingle.fbx").WaitForCompletion();
+                        mr.sharedMaterial = Addressables.LoadAssetAsync<Material>("Assets/ArtAssets/Materials/Global/GLB_WallWoodNatural_B_Flat01.mat").WaitForCompletion();
+                        mc.sharedMesh = mf.sharedMesh;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log error if needed - for now just destroy the incomplete object
+                        GameObject.Destroy(go);
+                        return;
+                    }
                     break;
 
-
-                case "OBJ_WoodPlankSingle2":
-                    mf.sharedMesh = Addressables.LoadAssetAsync<Mesh>("Assets/ArtAssets/Env/Structures/STR_CoastalHouseG/OBJ_WoodPlankSingle.fbx").WaitForCompletion();
-                    mr.sharedMaterial = Addressables.LoadAssetAsync<Material>("Assets/ArtAssets/Materials/Global/GLB_Black_A01.mat").WaitForCompletion();
-                    mc.sharedMesh = mf.sharedMesh;
-                    break;
-
+                default:
+                    // Unknown prefab type - destroy the object
+                    GameObject.Destroy(go);
+                    return;
             }
-        
+
             cachedPrefabs.Add(prefabName, go);
         }
-
     }
 }

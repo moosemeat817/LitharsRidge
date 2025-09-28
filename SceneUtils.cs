@@ -1,72 +1,77 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Il2Cpp;
 using UnityEngine;
-
-
-
+using Il2Cpp;
 
 namespace LitharsRidge
 {
     internal class SceneUtils
     {
-
-        //Instantiate Terrain
-        public static void InstantiateObjectInScene(GameObject prfb, Vector3 pos, Vector3 rot, Vector3 scale)
+        /// <summary>
+        /// Instantiates a terrain object in the scene with collision
+        /// </summary>
+        public static void InstantiateObjectInScene(GameObject prefab, Vector3 position, Vector3 rotation, Vector3 scale)
         {
-            if (prfb == null)
+            if (prefab == null)
             {
                 return;
             }
 
-            GameObject go = GameObject.Instantiate<GameObject>(prfb);
-            go.transform.position = pos;
-            go.transform.rotation = Quaternion.Euler(rot);
-            go.transform.localScale = scale;
-            go.name = "XXX_" + go.name;
-
-            if (go.GetComponent<Collider>() == null)
+            try
             {
-                go.AddComponent<MeshCollider>();
+                GameObject instantiatedObject = GameObject.Instantiate(prefab);
+                if (instantiatedObject == null)
+                {
+                    return;
+                }
+
+                instantiatedObject.transform.position = position;
+                instantiatedObject.transform.rotation = Quaternion.Euler(rotation);
+                instantiatedObject.transform.localScale = scale;
+                instantiatedObject.name = "XXX_" + instantiatedObject.name;
+
+                // Ensure the object has a collider for terrain interaction
+                if (instantiatedObject.GetComponent<Collider>() == null)
+                {
+                    instantiatedObject.AddComponent<MeshCollider>();
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log error if logging system is available
+                // For now, silently fail to prevent crashes
+                return;
             }
         }
 
-
-        //Instantiate Objects or Structures or Terrains
-        public static void PlaceAssetsInScene(string name, Vector3 pos, Vector3 rot, Vector3 scale)
+        /// <summary>
+        /// Places custom assets in the scene using the AssetUtils system
+        /// </summary>
+        public static void PlaceAssetsInScene(string assetName, Vector3 position, Vector3 rotation, Vector3 scale)
         {
-
-            GameObject prfb = AssetUtils.GetPrefab(name);
-
-            if (prfb == null)
+            if (string.IsNullOrEmpty(assetName))
             {
                 return;
             }
 
-            GameObject go = GameObject.Instantiate<GameObject>(prfb);
-            go.transform.position = pos;
-            go.transform.rotation = Quaternion.Euler(rot);
-            go.transform.localScale = scale;
-            go.name = "ZZZ_" + go.name;
+            try
+            {
+                GameObject prefab = AssetUtils.GetPrefab(assetName);
+                if (prefab == null)
+                {
+                    return;
+                }
+
+                prefab.transform.position = position;
+                prefab.transform.rotation = Quaternion.Euler(rotation);
+                prefab.transform.localScale = scale;
+                prefab.name = "ZZZ_" + prefab.name;
+            }
+            catch (Exception ex)
+            {
+                // Log error if logging system is available
+                // For now, silently fail to prevent crashes
+                return;
+            }
         }
-
-
-        /*
-        public static void ChangeObjects(GameObject prfb, Vector3 pos, Vector3 rot, Vector3 scale)
-        {
-
-           
-            //GameObject prfb = new GameObject();
-
-            GameObject cloneObject = Instantiate(prfb, pos, rot, scale);
-
-
-
-        }
-        */
-
     }
 }

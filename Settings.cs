@@ -2,28 +2,28 @@ using ModSettings;
 
 namespace LitharsRidge
 {
-    internal class LitharsRidge : JsonModSettings
+    internal class LitharsRidgeSettings : JsonModSettings
     {
-
         [Name("Enable Lithar's Ridge")]
-        [Description("Enables the mod")]
+        [Description("Enables the mod functionality")]
         public bool litharEnabled = false;
 
-        [Name("Add Lookout Tower")]
-        [Description("Add Lookout Tower to Lithar's Ridge")]
-        public bool litharTower = false;
-
+        [Name("Relocate Prepper Cache")]
+        [Description("Move Prepper Cache to the backside of Lithar's Ridge")]
+        public bool litharHatch = false;
     }
 
     internal static class Settings
     {
-        public static LitharsRidge options;
+        public static LitharsRidgeSettings options;
 
         public static void OnLoad()
         {
-            options = new LitharsRidge();
-            options.AddToModSettings("Lithar's Ridge", MenuType.Both);
+            if (options == null)
+            {
+                options = new LitharsRidgeSettings();
+                options.AddToModSettings("Lithar's Ridge", MenuType.Both);
+            }
         }
     }
-
 }

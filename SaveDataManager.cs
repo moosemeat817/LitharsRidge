@@ -12,7 +12,7 @@ namespace LitharsRidge
         public static readonly string saveDataTag = "litharsRidgeData";
         public static ModDataManager dataManager = new ModDataManager("LitharsRidge");
 
-        // Your data variables - using Dictionary to match the corpse burial mod pattern
+        // Furniture placement data
         public static Dictionary<string, int> furnitureData = new Dictionary<string, int>
         {
             ["endTable"] = 0,
@@ -23,41 +23,65 @@ namespace LitharsRidge
             ["regularBed"] = 0
         };
 
-        // Helper properties for easier access
+        // Helper properties for easier access with null safety
         public static int endTable
         {
-            get => furnitureData.TryGetValue("endTable", out int value) ? value : 0;
-            set => furnitureData["endTable"] = value;
+            get => furnitureData?.TryGetValue("endTable", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["endTable"] = value;
+            }
         }
 
         public static int foldingChair
         {
-            get => furnitureData.TryGetValue("foldingChair", out int value) ? value : 0;
-            set => furnitureData["foldingChair"] = value;
+            get => furnitureData?.TryGetValue("foldingChair", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["foldingChair"] = value;
+            }
         }
 
         public static int stoveMetal
         {
-            get => furnitureData.TryGetValue("stoveMetal", out int value) ? value : 0;
-            set => furnitureData["stoveMetal"] = value;
+            get => furnitureData?.TryGetValue("stoveMetal", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["stoveMetal"] = value;
+            }
         }
 
         public static int cornerCounter
         {
-            get => furnitureData.TryGetValue("cornerCounter", out int value) ? value : 0;
-            set => furnitureData["cornerCounter"] = value;
+            get => furnitureData?.TryGetValue("cornerCounter", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["cornerCounter"] = value;
+            }
         }
 
         public static int baseCounter
         {
-            get => furnitureData.TryGetValue("baseCounter", out int value) ? value : 0;
-            set => furnitureData["baseCounter"] = value;
+            get => furnitureData?.TryGetValue("baseCounter", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["baseCounter"] = value;
+            }
         }
 
         public static int regularBed
         {
-            get => furnitureData.TryGetValue("regularBed", out int value) ? value : 0;
-            set => furnitureData["regularBed"] = value;
+            get => furnitureData?.TryGetValue("regularBed", out int value) == true ? value : 0;
+            set
+            {
+                if (furnitureData != null)
+                    furnitureData["regularBed"] = value;
+            }
         }
 
         [HarmonyPatch(typeof(SaveGameSystem), nameof(SaveGameSystem.SaveSceneData))]
@@ -65,11 +89,32 @@ namespace LitharsRidge
         {
             internal static void Prefix(ref SlotData slot)
             {
-                MelonLogger.Msg($"[LitharsRidge] SAVING DATA - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, baseCounter: {regularBed}");
-                string serializedSaveData = JSON.Dump(furnitureData);
-                MelonLogger.Msg($"[LitharsRidge] Serialized data: {serializedSaveData}");
-                dataManager.Save(serializedSaveData, saveDataTag);
-                MelonLogger.Msg("[LitharsRidge] Save completed");
+                try
+                {
+                    if (furnitureData == null)
+                    {
+                        MelonLogger.Warning("[LitharsRidge] FurnitureData is null during save - initializing defaults");
+                        InitializeDefaults();
+                    }
+
+                    MelonLogger.Msg($"[LitharsRidge] SAVING DATA - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, regularBed: {regularBed}");
+
+                    string serializedSaveData = JSON.Dump(furnitureData);
+                    if (!string.IsNullOrEmpty(serializedSaveData))
+                    {
+                        MelonLogger.Msg($"[LitharsRidge] Serialized data: {serializedSaveData}");
+                        dataManager.Save(serializedSaveData, saveDataTag);
+                        MelonLogger.Msg("[LitharsRidge] Save completed");
+                    }
+                    else
+                    {
+                        MelonLogger.Warning("[LitharsRidge] Failed to serialize save data");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MelonLogger.Error($"[LitharsRidge] Error saving data: {ex.Message}");
+                }
             }
         }
 
@@ -78,62 +123,86 @@ namespace LitharsRidge
         {
             internal static void Postfix(ref string name)
             {
-                MelonLogger.Msg($"[LitharsRidge] LOADING DATA for scene: {name}");
-                LoadData();
+                try
+                {
+                    MelonLogger.Msg($"[LitharsRidge] LOADING DATA for scene: {name}");
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MelonLogger.Error($"[LitharsRidge] Error loading data for scene {name}: {ex.Message}");
+                    InitializeDefaults();
+                }
             }
         }
 
-        // Also try hooking into GameManager.LoadScene as backup
+        // Backup load hook
         [HarmonyPatch(typeof(GameManager), nameof(GameManager.LoadScene))]
         private static class LoadFurnitureDataBackup
         {
             internal static void Postfix(string sceneName)
             {
-                MelonLogger.Msg($"[LitharsRidge] BACKUP LOADING DATA for scene: {sceneName}");
-                LoadData();
+                try
+                {
+                    MelonLogger.Msg($"[LitharsRidge] BACKUP LOADING DATA for scene: {sceneName}");
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    MelonLogger.Error($"[LitharsRidge] Error in backup load for scene {sceneName}: {ex.Message}");
+                    InitializeDefaults();
+                }
             }
         }
 
-        // Separate load method to avoid duplication
         public static void LoadData()
         {
-            string serializedSaveData = dataManager.Load(saveDataTag);
-
-            if (!string.IsNullOrEmpty(serializedSaveData))
+            try
             {
-                MelonLogger.Msg($"[LitharsRidge] Found saved data: {serializedSaveData}");
-                JSON.MakeInto(JSON.Load(serializedSaveData), out furnitureData);
-                MelonLogger.Msg($"[LitharsRidge] LOADED VALUES - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, baseCounter: {regularBed}");
-            }
-            else
-            {
-                MelonLogger.Msg("[LitharsRidge] No saved data found - resetting to defaults");
-                // Reset to defaults for new games
-                furnitureData = new Dictionary<string, int>
+                if (dataManager == null)
                 {
-                    ["endTable"] = 0,
-                    ["foldingChair"] = 0,
-                    ["stoveMetal"] = 0,
-                    ["cornerCounter"] = 0,
-                    ["baseCounter"] = 0,
-                    ["regularBed"] = 0
-                };
-                MelonLogger.Msg($"[LitharsRidge] DEFAULT VALUES SET - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, baseCounter: {regularBed}");
+                    MelonLogger.Warning("[LitharsRidge] DataManager is null - cannot load data");
+                    InitializeDefaults();
+                    return;
+                }
+
+                string serializedSaveData = dataManager.Load(saveDataTag);
+
+                if (!string.IsNullOrEmpty(serializedSaveData))
+                {
+                    MelonLogger.Msg($"[LitharsRidge] Found saved data: {serializedSaveData}");
+
+                    var loadedData = JSON.Load(serializedSaveData);
+                    if (loadedData != null)
+                    {
+                        JSON.MakeInto(loadedData, out furnitureData);
+
+                        // Ensure all required keys exist
+                        EnsureAllKeysExist();
+
+                        MelonLogger.Msg($"[LitharsRidge] LOADED VALUES - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, regularBed: {regularBed}");
+                    }
+                    else
+                    {
+                        MelonLogger.Warning("[LitharsRidge] Failed to parse saved data - using defaults");
+                        InitializeDefaults();
+                    }
+                }
+                else
+                {
+                    MelonLogger.Msg("[LitharsRidge] No saved data found - resetting to defaults");
+                    InitializeDefaults();
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Error($"[LitharsRidge] Error loading data: {ex.Message}");
+                InitializeDefaults();
             }
         }
 
-        // Optional: Manual save method if needed
-        public static void SaveData()
+        private static void InitializeDefaults()
         {
-            MelonLogger.Msg($"[LitharsRidge] MANUAL SAVE - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, baseCounter: {regularBed}");
-            string serializedSaveData = JSON.Dump(furnitureData);
-            dataManager.Save(serializedSaveData, saveDataTag);
-        }
-
-        // Optional: Reset method for debugging
-        public static void ResetData()
-        {
-            MelonLogger.Msg("[LitharsRidge] RESETTING DATA to defaults");
             furnitureData = new Dictionary<string, int>
             {
                 ["endTable"] = 0,
@@ -143,7 +212,79 @@ namespace LitharsRidge
                 ["baseCounter"] = 0,
                 ["regularBed"] = 0
             };
-            MelonLogger.Msg($"[LitharsRidge] RESET COMPLETE - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, baseCounter: {regularBed}");
+            MelonLogger.Msg($"[LitharsRidge] DEFAULT VALUES SET - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, regularBed: {regularBed}");
+        }
+
+        private static void EnsureAllKeysExist()
+        {
+            if (furnitureData == null)
+            {
+                InitializeDefaults();
+                return;
+            }
+
+            var requiredKeys = new[] { "endTable", "foldingChair", "stoveMetal", "cornerCounter", "baseCounter", "regularBed" };
+
+            foreach (var key in requiredKeys)
+            {
+                if (!furnitureData.ContainsKey(key))
+                {
+                    furnitureData[key] = 0;
+                    MelonLogger.Msg($"[LitharsRidge] Added missing key: {key}");
+                }
+            }
+        }
+
+        // Manual save method for immediate saving
+        public static void SaveData()
+        {
+            try
+            {
+                if (furnitureData == null)
+                {
+                    MelonLogger.Warning("[LitharsRidge] Cannot save - furnitureData is null");
+                    return;
+                }
+
+                if (dataManager == null)
+                {
+                    MelonLogger.Warning("[LitharsRidge] Cannot save - dataManager is null");
+                    return;
+                }
+
+                MelonLogger.Msg($"[LitharsRidge] MANUAL SAVE - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, regularBed: {regularBed}");
+
+                string serializedSaveData = JSON.Dump(furnitureData);
+                if (!string.IsNullOrEmpty(serializedSaveData))
+                {
+                    dataManager.Save(serializedSaveData, saveDataTag);
+                    MelonLogger.Msg("[LitharsRidge] Manual save completed");
+                }
+                else
+                {
+                    MelonLogger.Warning("[LitharsRidge] Failed to serialize data for manual save");
+                }
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Error($"[LitharsRidge] Error during manual save: {ex.Message}");
+            }
+        }
+
+        // Reset method for debugging
+        public static void ResetData()
+        {
+            try
+            {
+                MelonLogger.Msg("[LitharsRidge] RESETTING DATA to defaults");
+                InitializeDefaults();
+                SaveData(); // Persist the reset
+                MelonLogger.Msg($"[LitharsRidge] RESET COMPLETE - endTable: {endTable}, foldingChair: {foldingChair}, stoveMetal: {stoveMetal}, cornerCounter: {cornerCounter}, baseCounter: {baseCounter}, regularBed: {regularBed}");
+            }
+            catch (Exception ex)
+            {
+                MelonLogger.Error($"[LitharsRidge] Error during reset: {ex.Message}");
+            }
         }
     }
 }
