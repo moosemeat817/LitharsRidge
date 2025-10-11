@@ -48,6 +48,10 @@ namespace LitharsRidge
                 // Furniture cloning needs to happen for sandbox scene as well
                 Clones.ChangeObjects();
             }
+            else if (sceneName == "CanneryRegion_SANDBOX" && Settings.options.litharEnabled)
+            {
+                Clones.CreateCustomLocationLabel();
+            }
             else if (sceneName == "CanneryRegion_SANDBOX_WILDLIFE")
             {
                 SetupWildlifePositions();
@@ -113,6 +117,8 @@ namespace LitharsRidge
             SetupCliffCave();
             Clones.ChangeObjects();
             ConfigureHayShed();
+
+            AddMapMarker.AddLitharsRidgeMarker();
         }
 
         private void RepositionDistantMountain()

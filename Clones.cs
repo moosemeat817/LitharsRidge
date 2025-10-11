@@ -37,7 +37,7 @@ namespace LitharsRidge
             {"CanneryRegion",  "OBJ_LogBridgeB_Prefab"},
             {"CanneryRegion",  "OBJ_Blizzard_Line_C_Prefab"},
 
-            {"CanneryRegion_SANDBOX",  "TRIGGER_LocationLabel (2)"},
+            //{"CanneryRegion_SANDBOX",  "CustomLocationTrigger"},
 
             {"CanneryRegion",  "OBJ_TreeCedarFelledC_Prefab"},
             {"CanneryRegion",  "TRN_PineTreeLog_SingleC1_Prefab (1)"},
@@ -85,6 +85,10 @@ namespace LitharsRidge
                     ProcessCanneryRegionSandboxObjects(objectName, findTargetGO);
                 }
             }
+
+            CreateCustomLocationLabel();
+
+            AddMapMarker.AddLitharsRidgeMarker();
         }
 
         private static void ProcessCanneryRegionObjects(string objectName, GameObject findTargetGO)
@@ -271,7 +275,10 @@ namespace LitharsRidge
                         Quaternion.Euler(0f, 197.1676f, 0f),
                         Vector3.one, "regularBed");
                     break;
-                
+                case "CustomLocationTrigger":
+                    CreateCustomLocationLabel();
+                    break;
+
             }
         }
 
@@ -458,6 +465,44 @@ namespace LitharsRidge
             foreach (var data in blizzardLineData)
             {
                 CreateCloneIfNotExists(source, data.name, data.pos, data.rot, Vector3.one);
+            }
+        }
+
+
+        public static void CreateCustomLocationLabel()
+        {
+            Debug.Log("CreateCustomLocationLabel: Method called");
+
+            if (GameObject.Find("LitharsRidge_LocationTrigger") != null)
+            {
+                Debug.Log("CreateCustomLocationLabel: Trigger already exists, skipping creation");
+                return;
+            }
+
+            try
+            {
+                // Create a completely new GameObject with trigger
+                GameObject locationTrigger = new GameObject("LitharsRidge_LocationTrigger");
+                locationTrigger.transform.position = new Vector3(-980.4878f, 217.5962f, 557.0328f);
+                locationTrigger.layer = LayerMask.NameToLayer("Trigger"); // Set to trigger layer
+
+                Debug.Log($"CreateCustomLocationLabel: Created GameObject at position {locationTrigger.transform.position}");
+
+                // Add sphere collider as trigger
+                SphereCollider triggerCollider = locationTrigger.AddComponent<SphereCollider>();
+                triggerCollider.isTrigger = true;
+                triggerCollider.radius = 90f;
+
+                Debug.Log($"CreateCustomLocationLabel: Added SphereCollider with radius {triggerCollider.radius}");
+
+                // Add the trigger handler component using Il2Cpp types
+                var triggerHandler = locationTrigger.AddComponent<LitharsRidgeTrigger>();
+
+                Debug.Log("CreateCustomLocationLabel: Setup complete!");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Log($"CreateCustomLocationLabel: Error - {ex.Message}\n{ex.StackTrace}");
             }
         }
     }
