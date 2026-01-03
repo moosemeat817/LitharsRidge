@@ -46,6 +46,8 @@
 3. Make sure both files are in the `Mods` folder  
 4. Enable the mod before starting a new game to have the hut populated  
 
+NOTE: Following the update to TLD version 2.51, when you re-install this mod you will likely get a duplicate set of furniture in Lithar's Hut.
+
 ---
 
 ## 🧱 Requirements
