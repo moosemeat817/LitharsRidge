@@ -74,7 +74,18 @@ namespace LitharsRidge
                 (pos: new Vector3(-981.4315f, 204.657f, 724.1172f), rot: new Vector3(-0, 39.5419f, 0f), scale: Vector3.one),
                 (pos: new Vector3(-999.9818f, 251.428f, 800.2368f), rot: new Vector3(-0, 173.4816f, 0f), scale: Vector3.one),
                 (pos: new Vector3(-1061.374f, 243.7888f, 729.8143f), rot: new Vector3(-0, 232.903f, 0f), scale: Vector3.one),
-                (pos: new Vector3(-965.4373f, 243.7888f, 729.8143f), rot: new Vector3(-0, 14.8149f, 0f), scale: new Vector3(0.8f, 1, 0.9f))
+                (pos: new Vector3(-965.4373f, 243.7888f, 729.8143f), rot: new Vector3(-0, 14.8149f, 0f), scale: new Vector3(0.8f, 1, 0.9f)),
+
+                (pos: new Vector3(-952.4373f, 82.6994f, 663.2723f), rot: new Vector3(24.0001f, 20.492f, 358f), scale: new Vector3(1.6f, 1, 1.7f)),
+
+                (pos: new Vector3(-958.2429f, 154.0132f, 626.5838f), rot: new Vector3(36f, 32.815f, 0f), scale: new Vector3(0.6f, 0.4f, 1f)),
+
+                (pos: new Vector3(-890.4373f, 70.2479f, 706.8143f), rot: new Vector3(-0, 57.8149f, 0f), scale: new Vector3(0.9f, 1f, 0.9f)),
+
+                (pos: new Vector3(-916.5272f, 93.1128f, 656.8939f), rot: new Vector3(-0, 26.9149f, 0f), scale: new Vector3(0.8f, 1f, 0.9f)),
+
+                (pos: new Vector3(-883.4373f, 107.2479f, 772.4854f), rot: new Vector3(-0, 43.8149f, 0f), scale: new Vector3(0.7f, .8f, 1f)),
+                (pos: new Vector3(-945.6197f, 119.0226f, 617.7601f), rot: new Vector3(-0, 208.815f, 0f), scale: new Vector3(0.5f, .9f, 0.6f))
             };
 
             foreach (var data in expansionCliffData)

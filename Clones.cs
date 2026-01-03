@@ -293,24 +293,43 @@ namespace LitharsRidge
 
         private static void CreateFurnitureIfNotExists(GameObject source, string cloneName, Vector3 position, Quaternion rotation, Vector3 scale, string saveDataKey)
         {
-            if (source == null || GameObject.Find(cloneName) != null)
+            if (source == null)
+            {
+                Debug.Log($"CreateFurnitureIfNotExists: Source is null for {cloneName}");
                 return;
+            }
+
+            // CRITICAL: Check if clone already exists in the scene first!
+            GameObject existingClone = GameObject.Find(cloneName);
+            if (existingClone != null)
+            {
+                Debug.Log($"CreateFurnitureIfNotExists: {cloneName} already exists in scene at position {existingClone.transform.position}, skipping creation");
+                return;
+            }
+
+            Debug.Log($"CreateFurnitureIfNotExists: {cloneName} not found in scene");
 
             // Check if furniture has already been placed using save data
-            bool shouldPlace = saveDataKey switch
+            int savedValue = saveDataKey switch
             {
-                "endTable" => SaveDataManager.endTable == 0,
-                "foldingChair" => SaveDataManager.foldingChair == 0,
-                "cornerCounter" => SaveDataManager.cornerCounter == 0,
-                "baseCounter" => SaveDataManager.baseCounter == 0,
-                "regularBed" => SaveDataManager.regularBed == 0,
-                _ => false
+                "endTable" => SaveDataManager.endTable,
+                "foldingChair" => SaveDataManager.foldingChair,
+                "cornerCounter" => SaveDataManager.cornerCounter,
+                "baseCounter" => SaveDataManager.baseCounter,
+                "regularBed" => SaveDataManager.regularBed,
+                _ => 0
             };
+
+            Debug.Log($"CreateFurnitureIfNotExists: {cloneName} save data value = {savedValue}");
+
+            bool shouldPlace = savedValue == 0;
 
             if (shouldPlace)
             {
+                Debug.Log($"CreateFurnitureIfNotExists: Creating {cloneName} (save data = 0, means not placed yet)");
                 GameObject cloneObject = Instantiate(source, position, rotation);
                 cloneObject.transform.localScale = scale;
+                cloneObject.name = cloneName;
 
                 // Mark as placed in save data
                 switch (saveDataKey)
@@ -333,6 +352,11 @@ namespace LitharsRidge
                 }
 
                 SaveDataManager.SaveData();
+                Debug.Log($"CreateFurnitureIfNotExists: Created and saved {cloneName}");
+            }
+            else
+            {
+                Debug.Log($"CreateFurnitureIfNotExists: Skipping {cloneName} (save data = 1, already placed)");
             }
         }
 
@@ -459,7 +483,12 @@ namespace LitharsRidge
                 (name: "OBJ_Blizzard_Line_C_Prefab17(Clone)", pos: new Vector3(-985.64f, 216.28f, 569.16f), rot: Quaternion.Euler(-0f, 211.9293f, 0f)),
                 (name: "OBJ_Blizzard_Line_C_Prefab18(Clone)", pos: new Vector3(-968.35f, 215.48f, 563.57f), rot: Quaternion.Euler(-0f, 211.9293f, 0f)),
                 (name: "OBJ_Blizzard_Line_C_Prefab19(Clone)", pos: new Vector3(-1166.98f, 186.46f, 443.46f), rot: Quaternion.Euler(-0f, 211.9293f, 0f)),
-                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-1114.57f, 238.00f, 604.67f), rot: Quaternion.Euler(-0f, 211.9293f, 0f))
+                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-1114.57f, 238.00f, 604.67f), rot: Quaternion.Euler(-0f, 211.9293f, 0f)),
+
+                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-887.5344f, 122.7757f, 744.232f), rot: Quaternion.Euler(-0f, 334.9292f, 0f)),
+                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-932.9107f, 146.227f, 699.3399f), rot: Quaternion.Euler(-0f, 334.9292f, 0f)),
+                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-944.6503f, 174.8554f, 644.4885f), rot: Quaternion.Euler(-0f, 334.9292f, 0f)),
+                (name: "OBJ_Blizzard_Line_C_Prefab20(Clone)", pos: new Vector3(-966.2336f, 198.3292f, 618.3906f), rot: Quaternion.Euler(-0f, 334.9292f, 0f))
             };
 
             foreach (var data in blizzardLineData)

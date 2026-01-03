@@ -6,6 +6,8 @@ namespace LitharsRidge
 {
     public class Main : MelonMod
     {
+        private static bool hasSandboxDataBeenLoaded = false;
+
         public override void OnInitializeMelon()
         {
             Settings.OnLoad();
@@ -44,13 +46,15 @@ namespace LitharsRidge
             }
             else if (sceneName == "CanneryRegion_SANDBOX")
             {
+                MelonLogger.Msg("[LitharsRidge] OnSceneWasLoaded: CanneryRegion_SANDBOX loaded");
                 SetupSandboxPositions();
-                // Furniture cloning needs to happen for sandbox scene as well
+
+                // Load save data and create furniture immediately
+                MelonLogger.Msg("[LitharsRidge] Loading furniture data from save file");
+                SaveDataManager.LoadData();
+
+                MelonLogger.Msg("[LitharsRidge] Creating furniture objects based on loaded data");
                 Clones.ChangeObjects();
-            }
-            else if (sceneName == "CanneryRegion_SANDBOX" && Settings.options.litharEnabled)
-            {
-                Clones.CreateCustomLocationLabel();
             }
             else if (sceneName == "CanneryRegion_SANDBOX_WILDLIFE")
             {
@@ -68,7 +72,6 @@ namespace LitharsRidge
                     Quaternion.Euler(new Vector3(0f, 197.9656f, 0f))
                 );
             }
-
         }
 
         private void EnableSandboxResources()
@@ -110,7 +113,7 @@ namespace LitharsRidge
 
         private void InitializeCanneryRegion()
         {
-            SaveDataManager.LoadData();
+
             new LRManager().PlaceTerrain();
 
             RepositionDistantMountain();
